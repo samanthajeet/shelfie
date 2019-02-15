@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Dashboard from './components/Dashboard/Dashboard';
+import Form from './components/Form/Form';
+import Header from './components/Header/Header';
+
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      inventoryList: [
+        {
+          name: 'puppy',
+          price: 400,
+          image: 'https://tinyurl.com/y6maqb3j'
+        },
+        {
+          name: 'https://tinyurl.com/y6maqb3j' ,
+          price: 200,
+          image: 'https://tinyurl.com/y4whfq3w'
+        }
+      ]
+    }
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <Header />
+      <Dashboard
+        inventoryList={this.state.inventoryList}
+      />
+
+      <Form />
+
       </div>
     );
   }
