@@ -10,8 +10,13 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      inventoryList: []
+      inventoryList: [],
+      isEditing: false
     }
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.isEditing = this.isEditing.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
 
@@ -24,15 +29,40 @@ class App extends Component {
     })
   }
 
+  deleteProduct(id){
+    console.log('delete')
+    axios.delete(`/api/product/${id}`).then( (res) => {
+      this.setState({
+        inventoryList: res.data
+      })
+    })
+  }
+
+
+  isEditing(){
+    console.log('edit')
+    this.setState({
+      isEditing: true
+    })
+  }
+
+
   render() {
     return (
       <div className="App">
       <Header />
       <Dashboard
         inventoryList={this.state.inventoryList}
+        isEditingFn={this.isEditing}
+        deleteProduct={this.deleteProduct}
       />
 
-      <Form />
+      <Form
+        get={this.componentDidMount} 
+        isEditing={this.state.isEditing}
+        isEditingFn={this.isEditing}
+
+      />
 
       </div>
     );

@@ -4,7 +4,8 @@ import Product from '../Product/Product';
 
 class Dashboard extends Component {
 
-  state = {  }
+
+
   render() { 
     const { inventoryList } = this.props
     const productDisplay = inventoryList.map( (product,i) => {
@@ -12,6 +13,8 @@ class Dashboard extends Component {
         <Product
           key={i}
           product={product}
+          isEditingFn={this.props.isEditingFn}
+          deleteProduct={this.props.deleteProduct}
         />
       )
     })
