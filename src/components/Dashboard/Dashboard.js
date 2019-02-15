@@ -13,7 +13,6 @@ class Dashboard extends Component {
           key={i}
           product={product}
         />
-
       )
     })
     return (

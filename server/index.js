@@ -8,7 +8,7 @@ const massive =require('massive');
 const app = express();
 app.use(bodyParser.json())
 
-const CONNECTION_STRING = process.env;
+const {CONNECTION_STRING} = process.env;
 
 massive(CONNECTION_STRING).then((dbInstance) => {
   app.set('db', dbInstance)
@@ -16,6 +16,10 @@ massive(CONNECTION_STRING).then((dbInstance) => {
   res.sendStatus(500);
   console.log(err)
 })
+
+//Endpoints
+
+app.get('/api/inventory', ctrl.getInventory)
 
 
 
