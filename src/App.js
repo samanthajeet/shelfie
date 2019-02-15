@@ -16,9 +16,9 @@ class App extends Component {
           image: 'https://tinyurl.com/y6maqb3j'
         },
         {
-          name: 'https://tinyurl.com/y6maqb3j' ,
+          name: 'nunchuck' ,
           price: 200,
-          image: 'https://tinyurl.com/y4whfq3w'
+          image: 'https://images-na.ssl-images-amazon.com/images/I/61sGOP4veiL._SY355_.jpg'
         }
       ]
     }

@@ -1,12 +1,11 @@
 import React from 'react';
 
 export default function Product(props){
-  return(
-    <div>
-      <h1>{this.props.name}</h1>
-      <h3>{this.props.price}</h3>
-      <img src={this.props.image} />
-
-    </div>
-  )
+    return (
+      <div>
+        <h1> {props.product.name}</h1>
+        <h2> {props.product.price} </h2>
+        <img src={props.product.image} alt={props.product.name} />
+      </div>
+    );
 }

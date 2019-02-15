@@ -6,11 +6,12 @@ class Dashboard extends Component {
 
   state = {  }
   render() { 
-    let productDisplay = this.props.inventoryList.map( (product,i) => {
+    const { inventoryList } = this.props
+    const productDisplay = inventoryList.map( (product,i) => {
       return (
         <Product
           key={i}
-          product={product.name}
+          product={product}
         />
 
       )
