@@ -15,6 +15,7 @@ class Dashboard extends Component {
           product={product}
           isEditingFn={this.props.isEditingFn}
           deleteProduct={this.props.deleteProduct}
+          updateState={this.updateState}
         />
       )
     })

@@ -12,6 +12,18 @@ class Form extends Component {
     }
   }
 
+  componentDidMount(){
+    console.log(this.props.isEditing)
+    console.log(this.props.editingImgUrl)
+    if (this.props.isEditing === true) {
+      this.setState({
+        img_url: this.props.editingImgUrl,
+        name: this.props.editingName,
+        price: this.editingPrice,
+      })
+    }
+  }
+
   handleImage(value){
     this.setState({
       img_url : value
@@ -38,26 +50,38 @@ class Form extends Component {
   }
 
 
-
-
   createProduct(){
     const {name, price, img_url} = this.state;
     axios.post('/api/product', {name:name, price: price, img_url: img_url}).then( (res) => {
       this.props.get()
     })
+    this.setState({
+      img_url: '',
+      name: '',
+      price: 0
+    })
 
   }
 
-  saveEdit(){
-    this.props.isEditingFn()
+  saveChanges(){
+    this.props.updateProduct()
   }
+
+
 
 
   render() { 
+    
 
     return ( 
       <div>
         <h1>Form</h1>
+
+        <div>
+        <img style={{"width": "25%"}} src={this.state.img_url} />
+
+        </div>
+
 
         <input 
           type="text"
@@ -81,7 +105,7 @@ class Form extends Component {
         <button onClick={ () => this.onCancel() }>Cancel</button>
 
         {this.props.isEditing ? (
-          <button onClick={ () => this.saveEdit()} >Save Changes</button>
+          <button onClick={ () => this.saveChanges(this.state.img_url, this.state.name, this.state.price)} >Save Changes</button>
         ) : (
           <button onClick={ () => this.createProduct()}>Add to Inventory</button>
         )}

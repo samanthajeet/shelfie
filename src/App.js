@@ -11,12 +11,14 @@ class App extends Component {
     super();
     this.state = {
       inventoryList: [],
-      isEditing: false
+      isEditing: false,
+      editingID: 0
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
     this.isEditing = this.isEditing.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
 
@@ -24,7 +26,11 @@ class App extends Component {
     axios.get('/api/inventory').then ((response) => {
       console.log(response)
       this.setState({
-        inventoryList: response.data
+        inventoryList: response.data,
+        editingID: '',
+        editingName: '',
+        editingPrice: 0,
+        editingImgUrl: ''
       })
     })
   }
@@ -39,30 +45,56 @@ class App extends Component {
   }
 
 
-  isEditing(){
-    console.log('edit')
-    this.setState({
-      isEditing: true
+  updateProduct(id,name,price,img_url) {
+    axios.put(`/api/product/${id}`, {name: name, price: price, img_url: img_url}).then( (res) => {
+      this.setState({
+        inventoryList: res.data,
+        isEditing: false
+      })
     })
   }
 
 
+  isEditing(id,name,price,img_url){
+    console.log(1111, 'now editing', id, name, price, img_url)
+    this.setState({
+      isEditing: true,
+      editingID: id,
+      editingName: name,
+      editingPrice: price,
+      editingImgUrl: img_url
+    })
+  }
+
+
+
+
+
+
   render() {
+    let {editingID, editingName, editingPrice, editingImgUrl} = this.state
+
+    
     return (
       <div className="App">
       <Header />
-      <Dashboard
-        inventoryList={this.state.inventoryList}
-        isEditingFn={this.isEditing}
-        deleteProduct={this.deleteProduct}
-      />
-
       <Form
         get={this.componentDidMount} 
         isEditing={this.state.isEditing}
         isEditingFn={this.isEditing}
+        updateProduct={this.updateProduct}
+        editingId={editingID}
+        editingName={editingName}
+        editingPrice={editingPrice}
+        editingImgUrl={editingImgUrl}
+        
+        />
+      <Dashboard
+        inventoryList={this.state.inventoryList}
+        isEditingFn={this.isEditing}
+        deleteProduct={this.deleteProduct}
+        />
 
-      />
 
       </div>
     );
