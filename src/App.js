@@ -12,7 +12,11 @@ class App extends Component {
     this.state = {
       inventoryList: [],
       isEditing: false,
-      editingID: 0
+      editingID: 0,
+      editingName: '',
+      editingPrice: '',
+      editingImgUrl: ''
+
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -87,6 +91,7 @@ class App extends Component {
         editingName={editingName}
         editingPrice={editingPrice}
         editingImgUrl={editingImgUrl}
+        editingId={editingID}
         
         />
       <Dashboard

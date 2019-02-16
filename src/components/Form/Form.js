@@ -9,20 +9,26 @@ class Form extends Component {
       img_url: '',
       name: '',
       price: 0,
+      id:0,
+      isEditing: false
     }
   }
 
-  componentDidMount(){
-    console.log(this.props.isEditing)
-    console.log(this.props.editingImgUrl)
-    if (this.props.isEditing === true) {
+  componentDidUpdate(prevProps){
+    if (this.props.isEditing !== prevProps.isEditing) {
+      console.log(333)
       this.setState({
         img_url: this.props.editingImgUrl,
         name: this.props.editingName,
-        price: this.editingPrice,
+        price: this.props.editingPrice,
+        id: this.props.editingId.editing,
+        isEditing: true
       })
+      return '444'
     }
+    console.log(this.state)
   }
+  
 
   handleImage(value){
     this.setState({
@@ -58,21 +64,26 @@ class Form extends Component {
     this.setState({
       img_url: '',
       name: '',
-      price: 0
+      price: 0,
+      isEditing: false
     })
 
   }
 
-  saveChanges(){
-    this.props.updateProduct()
+  saveChanges() {
+    console.log('wassup')
+    this.props.updateProduct(this.state.id, this.state.name, this.state.price, this.state.img_url )
+    this.setState({
+      img_url: '',
+      name: '',
+      price: 0,
+    })
   }
 
 
 
 
   render() { 
-    
-
     return ( 
       <div>
         <h1>Form</h1>
@@ -105,7 +116,7 @@ class Form extends Component {
         <button onClick={ () => this.onCancel() }>Cancel</button>
 
         {this.props.isEditing ? (
-          <button onClick={ () => this.saveChanges(this.state.img_url, this.state.name, this.state.price)} >Save Changes</button>
+          <button onClick={ () => this.saveChanges() } >Save Changes</button>
         ) : (
           <button onClick={ () => this.createProduct()}>Add to Inventory</button>
         )}
